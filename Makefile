@@ -9,10 +9,11 @@ test: venv
 build: Dockerfile
 	docker build . -t mysite
 
-venv: requirements.txt
+venv: requirements.ini
 	python3.8 -m venv venv
-	. venv/bin/activate && pip install --upgrade pip && \
-	pip install -r requirements.txt
+	. venv/bin/activate && pip install --upgrade pip && pip install pip-tools
+	. venv/bin/activate && pip-compile requirements.ini
+	. venv/bin/activate && pip install -r requirements.txt
 
 deploy: docker-compose.yaml
 	docker compose up -d
