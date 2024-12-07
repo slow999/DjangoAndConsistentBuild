@@ -16,8 +16,9 @@ venv/touch: requirements.txt
 	. venv/bin/activate && pip install -r requirements.txt
 	touch $@
 
-upgrade:
+venv-upgrade: venv
 	. venv/bin/activate && pip-compile --upgrade requirements.ini
+	$(MAKE) venv
 
 deploy: docker-compose.yaml
 	docker compose up -d
