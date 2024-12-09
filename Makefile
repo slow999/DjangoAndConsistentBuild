@@ -9,12 +9,10 @@ test: venv
 build: Dockerfile
 	docker build . -t mysite
 
-venv: venv/touch
-venv/touch: requirements.txt
+venv: requirements.txt
 	python3.8 -m venv venv
 	. venv/bin/activate && pip install --upgrade pip && pip install pip-tools
 	. venv/bin/activate && pip install -r requirements.txt
-	touch $@
 
 venv-upgrade: venv
 	. venv/bin/activate && pip-compile --upgrade requirements.ini
